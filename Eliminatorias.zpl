@@ -6,7 +6,7 @@ param n := 10;
 
 #MINMAX
 param M := 3*n;
-param r := 2;           #relajacion: restriccion inicial (se que en (5, 13) funciona) 
+param r := 4;           #relajacion: restriccion inicial (se que en (5, 13) funciona) 
 param eps := 1/M;
 param a := (n-1) - r;
 param b := (n-1) + r;
@@ -22,10 +22,10 @@ set I_s := {1, 2};
 
 
 #Variables
-var x[IJK] binary;      #Partido i local, j visitante, fecha k
-var y[I*K] binary;      #H-A sequence
+var x[IJK] binary;          #Partido i local, j visitante, fecha k
+var y[I*K] binary;          #H-A sequence
 var w[I*K_odd] binary;      #away break in the double round
-var f[I*I] integer;     #fecha en la que se jugo i vs j
+var f[I*I] integer;         #fecha en la que se jugo i vs j
 
 #MINMAX
 # var a integer >= 1 <= n - r;
