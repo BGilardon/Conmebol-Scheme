@@ -21,7 +21,7 @@ equipos = {
     10: 'venezuela'
 }
 
-ajuste = 0.75
+ajuste = 1
 
 # Cantidad de recuadros por fila y tamaño de recuadro
 recuadros_por_fila = 6
