@@ -8,8 +8,8 @@ param n := 10;
 param M := 3*n;
 param r := 2;           #relajacion: restriccion inicial (se que en (5, 13) funciona) 
 param eps := 1/M;
-# param a := (n-1) - r;   #Con n=6 ^ r=2 -> (a,b) = (3, 7)
-# param b := (n-1) + r;
+param a := (n-1) - r;
+param b := (n-1) + r;
 
 set I := {1..n};
 set K := {1..2*(n-1)};
@@ -30,7 +30,7 @@ var f[I*I] integer;     #fecha en la que se jugo i vs j
 #MINMAX
 # var a integer >= 1 <= n - r;
 # var b integer >= n + r <= 2*(n-1);
-# var t_min[I*I] binary;
+var t_min[I*I] binary;
 
 
 #Funcion Objetivo (Minimizar el intervalo de distancias)
@@ -91,8 +91,8 @@ subto fechas: forall <i, j> in I*I with i != j: f[i, j] == (sum <k> in K: k * x[
 #subto mirrored: forall <i, j, k> in I*I*K with i != j and 1 <= k and k <= n-1: x[i, j, k] == x[j, i, k+n-1];
 
 # French scheme.
-#subto French1: forall <i, j, k> in I*I*K with i != j: x[i, j, 1] == x[j, i, 2*n-2];
-#subto French2: forall <i, j, k> in I*I*K with i !=j and 2 <= k and k <= n-1: x[i, j, k] == x[j, i, k+n-2];
+# subto French1: forall <i, j, k> in I*I*K with i != j: x[i, j, 1] == x[j, i, 2*n-2];
+# subto French2: forall <i, j, k> in I*I*K with i !=j and 2 <= k and k <= n-1: x[i, j, k] == x[j, i, k+n-2];
 
 # English Scheme 
 #subto English1: forall <i, j, k> in I*I*K with i != j and 2 <= k and k <= n-2 : x[i, j, n-1] == x[j, i, n]; 
@@ -108,10 +108,10 @@ subto Inverted1: forall <i, j, k> in I*I*K with i != j and 1 <= k and k <= n-1: 
 #intervalo MINMAX
 # a < |f[i, j] - f[j, i]|
 # b > |f[i, j] - f[j, i]|
-# subto minimo1: forall <i, j> in I*I with i < j: a - t_min[i, j]*M <= f[i, j] - f[j, i];
-# subto minimo2: forall <i, j> in I*I with i < j: - a + (1-t_min[i, j])*M >= f[i, j] - f[j, i];
-# subto maximo1: forall <i, j> in I*I with i < j: b >= f[i, j] - f[j, i];
-# subto maximo2: forall <i, j> in I*I with i < j: b >= f[j, i] - f[i, j];
+subto minimo1: forall <i, j> in I*I with i < j: a - t_min[i, j]*M <= f[i, j] - f[j, i];
+subto minimo2: forall <i, j> in I*I with i < j: - a + (1-t_min[i, j])*M >= f[i, j] - f[j, i];
+subto maximo1: forall <i, j> in I*I with i < j: b >= f[i, j] - f[j, i];
+subto maximo2: forall <i, j> in I*I with i < j: b >= f[j, i] - f[i, j];
 
 
 
